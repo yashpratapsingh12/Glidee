@@ -1,13 +1,11 @@
 import React from 'react'
 
-const Explore = () => {
+const Saved = () => {
   return (
     <div>
-      Explore
-      
       
     </div>
   )
 }
 
-export default Explore
+export default Saved

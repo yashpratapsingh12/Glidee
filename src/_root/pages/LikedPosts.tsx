@@ -1,13 +1,11 @@
 import React from 'react'
 
-const Explore = () => {
+const LikedPosts = () => {
   return (
     <div>
-      Explore
-      
       
     </div>
   )
 }
 
-export default Explore
+export default LikedPosts

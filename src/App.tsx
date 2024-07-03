@@ -6,7 +6,8 @@ import AuthLayout from './_auth/AuthLayout'
 import SigninForm from './_auth/forms/SigninForm'
 import SignupForm from './_auth/forms/SignupForm'
 import RootLayout from './_root/RootLayout'
-import { Home } from 'lucide-react';
+import { AllUsers, CreatePost, EditPost, Explore, PostDetails, Profile, Saved, UpdateProfile,Home } from './_root/pages'
+
 import { Toaster } from "@/components/ui/toaster"
 
 
@@ -32,6 +33,7 @@ const App = () => {
           <Route path='/posts/:id' element={<PostDetails/>}/>
           <Route path='/profile/:id/*' element={<Profile/>}/>
           <Route path='/update-profile/:id' element={<UpdateProfile/>}/>
+
 
 
           
