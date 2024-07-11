@@ -52,3 +52,4 @@ export const multiFormatDateString = (timestamp: string = ""): string => {
 export const checkIsLiked = (likeList: string[], userId: string) => {
   return likeList.includes(userId);
 };
+export const convertFileToUrl = (file: File) => URL.createObjectURL(file);

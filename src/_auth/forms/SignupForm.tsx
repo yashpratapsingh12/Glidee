@@ -12,8 +12,11 @@ import {useForm} from "react-hook-form"
 import { SignupValidation } from "@/lib/validation"
 import { z } from "zod"
 import Loader from "@/components/shared/Loader"
-import { useCreateUserAccount,useSignInAccount } from "@/lib/react-query/queriesAndMutation"
+import { useCreateUserAccount,useSignInAccount, useSignOutAccount } from "@/lib/react-query/queriesAndMutation"
 import { useUserContext } from "@/context/AuthContext"
+import { account } from "@/lib/appwrite/config"
+
+
 
 
 
@@ -26,6 +29,8 @@ const SignupForm = () => {
   const {mutateAsync:createUserAccount ,isPending:isCreatingAccount}= useCreateUserAccount();
 
   const {mutateAsync:signInAccount ,isPending:isSignIn}= useSignInAccount();
+  const {mutateAsync:signOut ,isPending} = useSignOutAccount();
+
 
 
 
@@ -49,8 +54,21 @@ const SignupForm = () => {
  
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignupValidation>) {
-    const newUser = await createUserAccount(values)
+    
 
+
+    const currentus = await checkAuthUser()
+    console.log(currentus)
+   
+    if(currentus)(
+     
+      signOut()
+    )
+     
+
+
+    const newUser = await createUserAccount(values)
+   
     if(!newUser){
       return    toast({
         title: "sign up failed. Please try again."
@@ -63,7 +81,7 @@ const SignupForm = () => {
 
     })
     if(!session){
-      return toast ({title:'sign in failed. Please try again.'})
+      return toast ({title:'sign up failed. Please try again.'})
     }
 
     const isLoggedIn = await checkAuthUser();
@@ -79,9 +97,16 @@ const SignupForm = () => {
       
   }
   return (
+
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
-        <img src="/assets/images/logo.svg"/>
+      <div className=" mb- ml-16">
+        <img src="/assets/images/logo.svg" alt="logo" />
+      
+
+        </div>
+        
+    
 
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">Create a new account </h2>
         <p className="text-light-3 small-medium md:base-regular mt-2">
@@ -147,7 +172,7 @@ const SignupForm = () => {
             </FormItem>
           )}
           />
-        <Button type="submit" className="shad-button_primary">{isCreatingAccount ? (
+        <Button type="submit" className="shad-button_primary">{(isCreatingAccount||isPending) ? (
           <div className="flex-center gap-2">
           <Loader/> Loading...
           </div>
