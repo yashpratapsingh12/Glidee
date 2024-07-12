@@ -180,8 +180,11 @@ export function getFilePreview(fileId: string) {
       fileId,
       2000,
       2000,
-      // "top",
-      // 100
+          //eslint-disable-next-line'
+      // @typescript-eslint/ban-ts-Comment
+      //@ts-expect-error
+      "top",
+      100
     );
 
     if (!fileUrl) throw Error;
