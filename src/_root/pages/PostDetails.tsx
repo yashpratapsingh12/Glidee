@@ -1,11 +1,7 @@
 
 import { useParams, Link, useNavigate } from "react-router-dom";
-
-// import { Button } from "@/components/ui";
 import { Button } from "@/components/ui/button";
-// import { Loader } from "@/components/shared";
 import Loader from "@/components/shared/Loader";
-// import { GridPostList, PostStats } from "@/components/shared";
 import GridPostList from "@/components/shared/GridPostList";
 import PostStats from "@/components/shared/PostStats";
 
@@ -17,16 +13,15 @@ import {
 } from "@/lib/react-query/queriesAndMutation";
 import { multiFormatDateString } from "@/lib/utils";
 import { useUserContext } from "@/context/AuthContext";
-import { useState } from "react";
-import { Models } from "appwrite";
 import { useDeleteSavedPost } from "@/lib/react-query/queriesAndMutation";
+import { Models } from "appwrite";
 const PostDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { user } = useUserContext();
   const{mutate:deletesavePost} = useDeleteSavedPost();
 
-  // const [isSaved, setIsSaved] = useState(false);
+
 
   const { data: currentUser } = useGetCurrentUser();
   

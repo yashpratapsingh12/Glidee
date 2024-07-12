@@ -9,14 +9,9 @@ import {
 } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
-
 import { LikedPosts } from "@/_root/pages";
 import { useUserContext } from "@/context/AuthContext";
-// import { useGetUserById } from "@/lib/react-query/queries";
-
 import { useGetUserById } from "@/lib/react-query/queriesAndMutation";
-
-// import { GridPostList, Loader } from "@/components/shared";
 import GridPostList from "@/components/shared/GridPostList";
 import Loader from "@/components/shared/Loader";
 
@@ -26,11 +21,6 @@ interface StabBlockProps {
   value: string | number;
   label: string;
 }
-
-
-
-
-
 
 
 
@@ -108,10 +98,10 @@ const Profile = () => {
               </Link>
             </div>
             <div className={`${user.id === id && "hidden"}`}>
-              <Button type="button" className="shad-button_primary px-8">
-                folow
+              {/* <Button type="button" className="shad-button_primary px-8">
                 
-              </Button>
+                
+              </Button> */}
             </div>
           </div>
         </div>

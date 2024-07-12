@@ -1,7 +1,9 @@
+
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router-dom";
+
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -11,24 +13,17 @@ import { useToast } from "@/components/ui/use-toast";
 
 import { SigninValidation } from "@/lib/validation";
 import { useSignInAccount } from "@/lib/react-query/queriesAndMutation";
-import { useSignOutAccount } from "@/lib/react-query/queriesAndMutation";
-
 import { useUserContext } from "@/context/AuthContext";
-import { getAccount, getUserById } from "@/lib/appwrite/api";
-import { account } from "@/lib/appwrite/config";
-import { useEffect } from "react";
-
+import { useSignOutAccount } from "@/lib/react-query/queriesAndMutation";
 
 const SigninForm = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const { checkAuthUser, isLoading: isUserLoading, user } = useUserContext();
+  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
 
   // Query
-  const { mutateAsync: signInAccount} = useSignInAccount();
-  const {mutateAsync:signOut ,isPending:isLoading} = useSignOutAccount();
-
-
+  const { mutateAsync: signInAccount, isLoading } = useSignInAccount();
+  const {mutateAsync:signout,isSuccess } = useSignOutAccount();
 
   const form = useForm<z.infer<typeof SigninValidation>>({
     resolver: zodResolver(SigninValidation),
@@ -38,46 +33,48 @@ const SigninForm = () => {
     },
   });
 
+
+
   const handleSignin = async (user: z.infer<typeof SigninValidation>) => {
-
     
-   const currentus = await checkAuthUser()
-   console.log(currentus)
 
-
-   
-    const session = await signInAccount(user);
-
-    if (!session && currentus) {
-      {isLoading? <Loader/>:signOut}
-      // toast({ title: "Login failed. Please try again." });
+    // console.log(isLoggedIn)
     
+    // if(isLoggedIn){
+      //   signout();
       
-      // return;
-    }
-
-    const isLoggedIn = await checkAuthUser();
-
+      // }
+      
+      
+      const session = await signInAccount(user);
+      
+      if (!session) {
+        toast({ title: "Log in Failed" });
+        
+        return;
+      }
+      
+      const isLoggedIn = await checkAuthUser();
+    
     if (isLoggedIn) {
       form.reset();
 
+
+      
       navigate("/");
     } else {
-      toast({ title: "Login failed. .", });
+      toast({ title: "Login failed. Please try again.", });
       
       return;
     }
+    
   };
+    
 
   return (
     <Form {...form}>
-      <div className="sm:w-420 flex-center flex-col ">
-      
-        <div className=" ml-16">
-        <img src="/assets/images/logo.svg" alt="logo"/>
-      
-
-        </div>
+      <div className="sm:w-420 flex-center flex-col">
+        <img src="/assets/images/logo.svg" alt="logo" />
 
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
           Log in to your account
@@ -85,8 +82,6 @@ const SigninForm = () => {
         <p className="text-light-3 small-medium md:base-regular mt-2">
           Welcome back! Please enter your details.
         </p>
-
-
         <form
           onSubmit={form.handleSubmit(handleSignin)}
           className="flex flex-col gap-5 w-full mt-4">

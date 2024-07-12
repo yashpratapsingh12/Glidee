@@ -1,13 +1,12 @@
-import { Models } from 'appwrite'
-import React from 'react'
 import Loader from './Loader';
-
 import GridPostList from './GridPostList';
+
 
 export type SearchResultProps = {
   isSearchFetching: boolean;
   searchedPosts: any;
 };
+
 
 const SearchResults = ({ isSearchFetching, searchedPosts }: SearchResultProps) => {
   if (isSearchFetching) {

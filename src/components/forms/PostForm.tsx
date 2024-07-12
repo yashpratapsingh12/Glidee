@@ -50,7 +50,7 @@ const PostForm = ({post,action}:PostFormProps) => {
         },
       })
      
-      // 2. Define a submit handler.
+    
     async  function onSubmit(values: z.infer<typeof PostValidation>) {
          
         if(post && action ==='Update'){
@@ -160,15 +160,7 @@ const PostForm = ({post,action}:PostFormProps) => {
 
         Cancel</Button>
 
-      {/* <Button type="submit" 
-      className="shad-button_primary whitespace-nowrap"
-      >
-        {isLoadingCreate|| isLoadingUpdate && 'Loadng...'}
-        {action} Post
   
-      
-
-      </Button> */}
         <Button
             type="submit"
             className="shad-button_primary whitespace-nowrap"
