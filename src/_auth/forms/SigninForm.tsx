@@ -14,7 +14,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { SigninValidation } from "@/lib/validation";
 import { useSignInAccount } from "@/lib/react-query/queriesAndMutation";
 import { useUserContext } from "@/context/AuthContext";
-import { useSignOutAccount } from "@/lib/react-query/queriesAndMutation";
+
 
 const SigninForm = () => {
   const { toast } = useToast();
@@ -22,8 +22,8 @@ const SigninForm = () => {
   const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
 
   // Query
-  const { mutateAsync: signInAccount, isLoading } = useSignInAccount();
-  const {mutateAsync:signout,isSuccess } = useSignOutAccount();
+  const { mutateAsync: signInAccount, isPending:isLoading } = useSignInAccount();
+  
 
   const form = useForm<z.infer<typeof SigninValidation>>({
     resolver: zodResolver(SigninValidation),
@@ -37,14 +37,6 @@ const SigninForm = () => {
 
   const handleSignin = async (user: z.infer<typeof SigninValidation>) => {
     
-
-    // console.log(isLoggedIn)
-    
-    // if(isLoggedIn){
-      //   signout();
-      
-      // }
-      
       
       const session = await signInAccount(user);
       

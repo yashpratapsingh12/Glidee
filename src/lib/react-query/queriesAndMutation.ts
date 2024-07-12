@@ -52,22 +52,23 @@ import {
   
 
   
+
+
   export const useGetPosts = () => {
     return useInfiniteQuery({
       queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
-      queryFn: getInfinitePosts   ,
+      queryFn: getInfinitePosts , 
+      //eslint-disable-next-line'
+      // @typescript-eslint/ban-ts-Comment
+      //@ts-expect-error
       getNextPageParam: (lastPage) => {
-        
-        if (lastPage && lastPage.documents.length === 0) {
-          return null;
-        }
+        if(lastPage && lastPage.documents.length === 0) return null;
   
-        
-        const lastId = lastPage.documents[lastPage.documents.length - 1].$id;
+        const lastId = (lastPage?.documents[lastPage?.documents.length-1].$id);
         return lastId;
-      },
-    });
-  };
+      }
+    })
+  }
   
   export const useSearchPosts = (searchTerm: string) => {
     return useQuery({
