@@ -10,7 +10,7 @@ const EditPost = () => {
   
   const{data:post ,isPending} = useGetPostById(id || "");
 
-  if(isPending) return <div><Loader/></div>
+  if(isPending) return <Loader/>
 
   return (
     <div className="flex flex-1">
