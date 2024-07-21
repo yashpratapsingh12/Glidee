@@ -5,7 +5,7 @@ import Loader from "@/components/shared/Loader";
 import GridPostList from "@/components/shared/GridPostList";
 import PostStats from "@/components/shared/PostStats";
 
-import {
+import { 
   useGetPostById,
   useGetUserPosts,
   useDeletePost,
@@ -54,7 +54,7 @@ const PostDetails = () => {
 
   return (
     <div className="post_details-container">
-      <div className="hidden md:flex max-w-5xl w-full">
+      <div className=" md:flex max-w-5xl w-full">
         <Button
           onClick={() => navigate(-1)}
           variant="ghost"
